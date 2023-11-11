@@ -2,6 +2,7 @@
 
 import axios from "axios"
 import { useEffect, useState } from "react"
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function FetchData(){
     const [data, setData] = useState([])

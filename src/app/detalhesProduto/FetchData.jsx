@@ -8,17 +8,31 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function FetchData(){
     const x = useSearchParams().get('keyword')
+
+    function adicionarCarrinho() {
+        const lista = localStorage.getItem("carrinho");
+        console.log(lista)
+
+        const listaJson = lista !== null ? JSON.parse(lista):[];
+        listaJson.push(x);
+        console.log(listaJson)
+
+        const listStringfied = JSON.stringify(listaJson);
+        localStorage.setItem("carrinho", listStringfied);
+      }
+
     const [data, setData] = useState([])
     const [cat, setCat] = useState([])
     useEffect(() =>{
         axios.get(`http://localhost:8080/station/produto/${x}`)
         .then(res => {setData(res.data); setCat(res.data.categorias)})
         .catch(err => console.log(err))
-    }, [])
+    }, []);
+
     return(
         <div className="mt-10">
             <div className="flex mx-32">
-                <img className="rounded-xl w-5/12 object-contain align-middle " src="https://toyama.com.br/wp-content/uploads/2020/08/Produto-Sem-Imagem-600-x-600px.jpg"/>
+                <img className="rounded-xl w-5/12 object-contain align-middle " src={data.linkImagem}/>
                 <div className="w-7/12 ml-10 mt-10"> 
                     <div className="flex justify-between mb-8">
                         <h3 className="font-semibold text-xl"> {data.nome} </h3>
@@ -35,7 +49,9 @@ export default function FetchData(){
                         ))}
                     </div>
                     <div className="justify-end flex mt-6">
-                        <Link className="py-2 px-6 border border-teal-800 bg-teal-600 text-teal-50 font-bold rounded-lg" href="/carrinho"> <i className="bi bi-cart"></i> Adicionar ao Carrinho</Link>
+                        {/* <Link className="py-2 px-6 border border-teal-800 bg-teal-600 text-teal-50 font-bold rounded-lg" href="/carrinho"> <i className="bi bi-cart"></i> Adicionar ao Carrinho</Link> */}
+                        <button className="py-2 px-6 border border-teal-800 bg-teal-600 text-teal-50 font-bold rounded-lg" onClick={adicionarCarrinho}> <i className="bi bi-cart"></i> Adicionar ao Carrinho</button>
+                        {/* <button onClick={sayHello()} className="py-2 px-6 border border-teal-800 bg-teal-600 text-teal-50 font-bold rounded-lg">Adicionar ao Carrinho</button> */}
                     </div>
                 </div>
             </div>

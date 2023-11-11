@@ -18,7 +18,7 @@ export default function FetchData(){
                 {data.map((prod) =>{
                     return <Link href={{pathname: '/detalhesProduto', query: {keyword: prod.id}}}>
                         <div className="bg-emerald-50 border border-teal-500  mx-10 my-6 rounded p-4 text-center" key={prod.id}>
-                            <img className="mb-4" src="https://toyama.com.br/wp-content/uploads/2020/08/Produto-Sem-Imagem-600-x-600px.jpg" width={300}/>
+                            <img className="mb-4" src={prod.linkImagem} width={300}/>
                             <b>{prod.nome}</b>
                             <p> R${prod.preco},00</p>
                         </div>
